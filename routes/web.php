@@ -28,7 +28,7 @@ Route::controller(LoginController::class)->group(function(){
     Route::get('logout','logout')->middleware('auth')->name('logout');
 });
 
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::group(['middleware' => ['checkRole:admin']], function() {
         Route::resource('admin',AdminController::class)->except('show');
     });
@@ -43,7 +43,7 @@ Route::controller(LoginController::class)->group(function(){
     Route::post('user/transfer', [UserController::class, 'transfer'])->name('user.transfer');
     Route::post('user/top-up', [UserController::class, 'topUp'])->name('user.topUp');
     Route::post('user/withdraw', [UserController::class, 'withdraw'])->name('user.withdraw');
-// });
+});
 
 
 

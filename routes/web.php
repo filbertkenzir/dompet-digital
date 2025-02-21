@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('transactions', TransactionController::class)->except(['edit', 'update', 'destroy','show']);
 
-    Route::post('transactions/{transaction}/confirm', [TransactionController::class, 'konfirmasi'])->name('transactions.confirm')->middleware('checkRole:bank');
+    Route::put('/transactions/konfirmasi/{id}', [TransactionController::class, 'konfirmasi'])->name('transactions.konfirmasi');
 
     Route::post('user/transfer', [UserController::class, 'transfer'])->name('user.transfer');
     Route::post('user/top-up', [UserController::class, 'topUp'])->name('user.topUp');

@@ -61,24 +61,21 @@
                     @foreach ($transactions as $transaction)
                     <tr>
                         <td style="text-transform: capitalize;">{{ ($transaction->type) }}</td>
-                        @if ($transaction->type == 'top_up' || $transaction->confirmed  == 'sukses' || Auth::id() == $transaction->receiver_id)
+                        @if ($transaction->type == 'top_up' || Auth::id() == $transaction->receiver_id)
                             <td class="text-green-500">+ Rp{{ number_format($transaction->amount, 2,',','.') }}</td>
-                            <td class="text-green-500">Dikonfirmasi</td>
-                        @elseif ($transaction->type == 'withdrawal' || $transaction->confirmed  == 'pending' || Auth::id() == $transaction->sender_id)
+                        @elseif ($transaction->type == 'withdrawal' || Auth::id() == $transaction->sender_id)
                             <td class="text-red-500">- Rp{{ number_format($transaction->amount, 2,',','.') }}</td>
-                            <td class="text-red-500"> Uang Keluar</td>
-                        @elseif ($transaction->type == 'transfer' || $transaction->confirmed  == 'tolak' || Auth::id() == $transaction->sender_id)
+                        @elseif ($transaction->type == 'transfer' || Auth::id() == $transaction->sender_id)
                             <td class="text-red-500">? Rp{{ number_format($transaction->amount, 2,',','.') }}</td>
-                            <td class="text-grey-500"> menunggu Konfirmasi</td>
                             @endif
-                        <td>{{ $transaction->created_at }}</td>
-                        {{-- @if ($transaction->confirmed = = 'sukses')
+                        @if ($transaction->confirmed == 'sukses')
                             <td class="text-green-500">Dikonfirmasi</td>
                         @elseif ($transaction->confirmed == 'pending')
                             <td class="text-grey-500">Menunggu Konfirmasi</td>
                         @else ()
                             <td class="text-reed-500">Dibatalkan</td>
-                        @endif --}}
+                        @endif
+                        <td>{{ $transaction->created_at }}</td>
                     </tr>
                     @endforeach
                 </tbody>

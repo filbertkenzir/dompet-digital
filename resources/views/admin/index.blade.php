@@ -94,9 +94,9 @@
                 <th scope="col" class="px-6 py-3">
                     Status
                 </th>
-                {{-- <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3">
                     Aksi
-                </th> --}}
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -115,16 +115,25 @@
                 <td class="px-6 py-4">
                     Rp{{ number_format($transaction->amount, 2,',','.') }}
                 </td>
-                <td class="px-6 py-4">
-                    {{ $transaction->confirmed ? 'Dikonfirmasi' : 'Menunggu Konfirmasi' }}
+                <td class="px-6 py-4" style="text-transform: capitalize">
+                    @if ($transaction->confirmed === 'pending')
+                        <span class="text-yellow-500">Menunggu Konfirmasi</span>
+                    @elseif ($transaction->confirmed === 'sukses')
+                        <span class="text-green-500">Sukses</span>
+                    @else
+                        <span class="text-red-500">Ditolak</span>
+                    @endif
                 </td>
                 <td class="px-6 py-4">
-                    @if (!$transaction->confirmed && auth()->user()->role->name === 'bank')
-                        <form action="{{ route('transactions.confirm', $transaction->id) }}" method="POST">
+                    @if ($transaction->confirmed === 'pending' && auth()->user()->role === 'admin')
+                        <form action="{{ route('transactions.konfirmasi', $transaction->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="text-white bg-green-600 hover:bg-green-700 px-3 py-1 rounded">
-                                Konfirmasi
-                            </button>
+                            @method('PUT')
+                            <select name="status" class="p-2 border rounded">
+                                <option value="sukses">Konfirmasi Sukses</option>
+                                <option value="tolak">Tolak</option>
+                            </select>
+                            <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">Konfirmasi</button>
                         </form>
                     @endif
                 </td>

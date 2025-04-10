@@ -27,6 +27,7 @@ class TransactionController extends Controller
     {
         return view('transactions.create');
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -61,11 +62,11 @@ class TransactionController extends Controller
                 }
             }
             $transaction->update(['confirmed' => 'sukses']);
-            return redirect()->route('admin.index')->with('success', 'Transaksi berhasil dikonfirmasi.');
+            return redirect()->route('bank.index')->with('success', 'Transaksi berhasil dikonfirmasi.');
 
         } elseif ($request->status === 'tolak') {
             $transaction->update(['confirmed' => 'tolak']);
-            return redirect()->route('admin.index')->with('info', 'Transaksi telah ditolak.');
+            return redirect()->route('bank.index')->with('info', 'Transaksi telah ditolak.');
         }
         return redirect()->back()->with('error', 'Transaksi tidak valid untuk dikonfirmasi.');
     }

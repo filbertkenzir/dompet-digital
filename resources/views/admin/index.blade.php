@@ -124,7 +124,7 @@
                         <span class="text-red-500">Ditolak</span>
                     @endif
                 </td>
-                <td class="px-6 py-4">
+                {{-- <td class="px-6 py-4">
                     @if ($transaction->confirmed === 'pending' && auth()->user()->role === 'admin')
                         <form action="{{ route('transactions.konfirmasi', $transaction->id) }}" method="POST">
                             @csrf
@@ -136,7 +136,7 @@
                             <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">Konfirmasi</button>
                         </form>
                     @endif
-                </td>
+                </td> --}}
             </tr>
             @endforeach
         </tbody>

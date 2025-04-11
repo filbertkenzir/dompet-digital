@@ -15,7 +15,7 @@
     <div class="flex mt-6" style="gap: 1rem">
         <div class="block w-1/2 p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
             <form class="mx-auto" action="{{ route('user.topUp') }}" method="POST">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Masukan Dana</h5>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Masukan Dana (Min : 10.000)</h5>
                 @csrf
                 <div class="mb-5">
                     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah</label>

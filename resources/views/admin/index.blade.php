@@ -146,10 +146,7 @@
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Status
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Aksi
-                </th>
+                </th>   
             </tr>
         </thead>
         <tbody>

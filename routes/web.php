@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('transactions', TransactionController::class)->except(['edit', 'update', 'destroy','show']);
 
-    Route::put('/transactions/konfirmasi/{id}', [TransactionController::class, 'konfirmasi'])->name('transactions.konfirmasi')->middleware();
+    Route::put('/transactions/konfirmasi/{id}', [TransactionController::class, 'konfirmasi'])->name('transactions.konfirmasi');
 
 
 });

@@ -34,7 +34,7 @@ class BankController extends Controller
             'amount' => $request->amount,
         ]);
 
-        return redirect()->route('user.index')->with('success', 'Top-up berhasil!');
+        return redirect()->route('bank.index')->with('success', 'Top-up berhasil!');
     }
 
     public function withdraw(Request $request)
@@ -56,6 +56,6 @@ class BankController extends Controller
             'amount' => $request->amount,
         ]);
 
-        return redirect()->route('user.index')->with('success', 'Permintaan penarikan dikirim!');
+        return redirect()->route('bank.index')->with('success', 'Permintaan penarikan dikirim!');
     }
 }

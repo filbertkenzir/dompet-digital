@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -72,9 +73,21 @@ class AdminController extends Controller
         return redirect()->route('admin.index');
     }
 
-    public function singlePrint($id) {
-        $user = User::find($id);
-        $transactions = Transaction::where('sender_id', $id)->orWhere('receiver_id', $id)->get();
-        return view('admin/print', compact('user','transactions'));
+    public function printAll() {
+        $user = User::all();
+        $transactions = Transaction::all();
+
+        $pdf = Pdf::loadView('print-all', compact('user', 'transactions'));
+
+        return $pdf->download('all-users-transactions.pdf');
+        // return $pdf->stream('user-transactions.pdf'); // untuk tampil di browser
+    }
+
+    public function printSingle($id) {
+        $transactions = Transaction::findOrFail($id);
+
+        $pdf = Pdf::loadView('print-single', compact( 'transactions'));
+
+        return $pdf->download('user-transactions.pdf');
     }
 }

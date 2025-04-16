@@ -35,8 +35,12 @@
     <div class="p-6 max-w-7xl mx-auto space-y-8" style="margin-top: 10vh">
 
         <div class="bg-white p-6 rounded-xl shadow">
+
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold">Riwayat Transaksi</h2>
+                <a href="{{ route('print-all') }}"><button class="text-white bg-yellow-700 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="button">
+                    Unduh Semua
+                </button></a>
             </div>
 
             <div class="overflow-x-auto">
@@ -70,8 +74,8 @@
                                     <td class="p-3 text-center space-x-2"><span class="text-xs font-bold me-2 px-2.5 shadow py-2  bg-red-200 text-red-600 font-semibold rounded-lg shadow">Dibatalkan</span></td>
                                 @endif
                                 <td class="p-3 text-center">
-                                    <a href="{{ route('admin.single-print') }}"><button class="bg-yellow-600 text-white px-3 py-1 rounded hover:bg-yellow-700 text-sm">
-                                        Print
+                                    <a href="{{ route('print-single',$transaction->id) }}"><button class="bg-yellow-600 text-white px-3 py-1 rounded hover:bg-yellow-700 text-sm">
+                                        Unduh PDF
                                     </button></a>
                                 </td>
                             </tr>

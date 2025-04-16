@@ -32,8 +32,8 @@ Route::controller(LoginController::class)->group(function(){
 Route::middleware(['auth'])->group(function () {
     Route::group(['middleware' => ['checkRole:admin']], function() {
         Route::resource('admin',AdminController::class)->except('show');
-        Route::get('print', [AdminController::class, 'singlePrint'])->name('admin.single-print');
         Route::get('admin/riwayat', [AdminController::class, 'riwayat'])->name('admin.riwayat');
+
     });
 
     Route::group(['middleware' => ['checkRole:user']], function() {
@@ -55,6 +55,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::put('/transactions/konfirmasi/{id}', [TransactionController::class, 'konfirmasi'])->name('transactions.konfirmasi');
 
+    Route::get('print-single/{id}', [AdminController::class, 'printSingle'])->name('print-single');
+    Route::get('print-all', [AdminController::class, 'printAll'])->name('print-all');
 
 });
 

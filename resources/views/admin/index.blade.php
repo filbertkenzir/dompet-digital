@@ -109,7 +109,7 @@
                 </table>
             </div>
         </div>
-        
+
     </div>
 
     {{-- <div class="flex flex-col lg:flex-row gap-4 mb-6">
@@ -195,7 +195,7 @@
         </table>
     </div> --}}
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg" style="height: 60vh; top: 15vh; left: 9vw; width: 83vw;">
+    {{-- <div class="relative overflow-x-auto shadow-md sm:rounded-lg" style="height: 60vh; top: 15vh; left: 9vw; width: 83vw;">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <div class="flex" style="display:flex;">
                 <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
@@ -249,7 +249,7 @@
                             Print
                         </button></a>
                     </td>
-                    {{-- <td class="px-6 py-4">
+                    <td class="px-6 py-4">
                         @if ($transaction->confirmed === 'pending' && auth()->user()->role === 'admin')
                             <form action="{{ route('transactions.konfirmasi', $transaction->id) }}" method="POST">
                                 @csrf
@@ -261,12 +261,12 @@
                                 <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">Konfirmasi</button>
                             </form>
                         @endif
-                    </td> --}}
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-    </div>
+    </div> --}}
 
     <!-- modal1 -->
     <div id="crud-modal-1" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">

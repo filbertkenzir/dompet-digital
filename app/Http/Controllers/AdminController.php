@@ -14,9 +14,17 @@ class AdminController extends Controller
     }
 
     public function index(){
-        $user = User::all();
+        $users = User::all();
+        $totalUsers = User::count();
+        $totalTransactions = Transaction::count();
+        $totalBalance = Transaction::sum('amount');
         $transactions = Transaction::with('sender','receiver')->latest()->get();
-        return view('admin/index', compact('user','transactions'));
+        return view('admin/index', compact('users','transactions', 'totalUsers', 'totalTransactions', 'totalBalance'));
+    }
+
+    public function riwayat(){
+        $transactions = Transaction::with('sender','receiver')->latest()->get();
+        return view('admin.riwayat', compact('transactions'));
     }
 
     public function store(Request $request){
@@ -34,11 +42,6 @@ class AdminController extends Controller
             'password' => Hash::make($request->password),
         ]);
         return redirect()->route('admin.index');
-    }
-
-    public function edit($id){
-        $user = User::find($id);
-        return view('admin/edit', compact('user'));
     }
 
     public function update(Request $request, User $user, $id) {
@@ -67,5 +70,11 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return redirect()->route('admin.index');
+    }
+
+    public function singlePrint($id) {
+        $user = User::find($id);
+        $transactions = Transaction::where('sender_id', $id)->orWhere('receiver_id', $id)->get();
+        return view('admin/print', compact('user','transactions'));
     }
 }

@@ -32,6 +32,8 @@ Route::controller(LoginController::class)->group(function(){
 Route::middleware(['auth'])->group(function () {
     Route::group(['middleware' => ['checkRole:admin']], function() {
         Route::resource('admin',AdminController::class)->except('show');
+        Route::get('print', [AdminController::class, 'singlePrint'])->name('admin.single-print');
+        Route::get('admin/riwayat', [AdminController::class, 'riwayat'])->name('admin.riwayat');
     });
 
     Route::group(['middleware' => ['checkRole:user']], function() {
@@ -45,6 +47,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('bank',BankController::class)->except('show');
         Route::post('bank/top-up', [BankController::class, 'topUp'])->name('bank.topUp');
         Route::post('bank/withdraw', [BankController::class, 'withdraw'])->name('bank.withdraw');
+        Route::get('bank/riwayat', [BankController::class, 'riwayat'])->name('bank.riwayat');
+        Route::get('bank/akun', [BankController::class, 'akun'])->name('bank.akun');
     });
 
     Route::resource('transactions', TransactionController::class)->except(['edit', 'update', 'destroy','show']);

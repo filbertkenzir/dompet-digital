@@ -31,7 +31,7 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'type' => 'required|in:top_up,withdrawal',
+            'type' => 'required|in:topup,withdrawal',
             'amount' => 'required|numeric|min:1',
         ]);
 
@@ -52,13 +52,21 @@ class TransactionController extends Controller
         $sender = User::findOrFail($transaction->sender_id);
 
         if ($request->status === 'sukses') {
-            if ($transaction->type === 'top_up') {
+            if ($transaction->type === 'topup') {
                 $sender->increment('balance', $transaction->amount);
             } elseif ($transaction->type === 'withdrawal') {
                 if ($sender->balance >= $transaction->amount) {
                     $sender->decrement('balance', $transaction->amount);
                 } else {
                     return redirect()->back()->with('error', 'Saldo tidak cukup untuk konfirmasi penarikan.');
+                }
+            } elseif ($transaction->type === 'transfer') {
+                $receiver = User::findOrFail($transaction->receiver_id);
+                if ($sender->balance >= $transaction->amount) {
+                    $sender->decrement('balance', $transaction->amount);
+                    $receiver->increment('balance', $transaction->amount);
+                } else {
+                    return redirect()->back()->with('error', 'Saldo tidak cukup untuk konfirmasi transfer.');
                 }
             }
             $transaction->update(['confirmed' => 'sukses']);

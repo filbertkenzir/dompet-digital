@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('sender_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('receiver_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->enum('type', ['top_up', 'withdrawal', 'transfer']);
+            $table->enum('type', ['topup', 'withdrawal', 'transfer']);
             $table->decimal('amount', 15, 2);
             $table->enum('confirmed', ['sukses','pending','tolak'])->default('pending');
             $table->timestamps();

@@ -29,11 +29,12 @@ class UserController extends Controller
         ]);
 
         $user = User::findOrFail(Auth::id());
+
         // $user->update(['balance' => $user->balance + $request->amount]);
 
         Transaction::create([
             'sender_id' => $user->id,
-            'type' => 'top_up',
+            'type' => 'topup',
             'amount' => $request->amount,
         ]);
 
@@ -48,9 +49,9 @@ class UserController extends Controller
 
         $user = User::findOrFail(Auth::id());
 
-        // if ($user->balance < $request->amount) {
-        //     return redirect()->back()->with('error', 'Saldo tidak cukup!');
-        // }
+        if ($user->balance < $request->amount) {
+            return redirect()->back()->with('error', 'Saldo tidak cukup!');
+        }
         // $user->update(['balance' => $user->balance - $request->amount]);
 
         Transaction::create([
@@ -76,9 +77,9 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Saldo tidak cukup!');
         }
 
-        $sender->update(['balance' => $sender->balance - $request->amount]);
+        // $sender->update(['balance' => $sender->balance - $request->amount]);
 
-        $receiver->update(['balance' => $receiver->balance + $request->amount]);
+        // $receiver->update(['balance' => $receiver->balance + $request->amount]);
 
         Transaction::create([
             'sender_id' => $sender->id,

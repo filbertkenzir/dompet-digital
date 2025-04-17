@@ -72,22 +72,4 @@ class AdminController extends Controller
         $user->delete();
         return redirect()->route('admin.index');
     }
-
-    public function printAll() {
-        $user = User::all();
-        $transactions = Transaction::all();
-
-        $pdf = Pdf::loadView('print-all', compact('user', 'transactions'));
-
-        return $pdf->download('all-users-transactions.pdf');
-        // return $pdf->stream('user-transactions.pdf'); // untuk tampil di browser
-    }
-
-    public function printSingle($id) {
-        $transactions = Transaction::findOrFail($id);
-
-        $pdf = Pdf::loadView('print-single', compact( 'transactions'));
-
-        return $pdf->download('user-transactions.pdf');
-    }
 }

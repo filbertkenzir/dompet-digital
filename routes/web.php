@@ -5,6 +5,7 @@ use App\Http\Controllers\BankController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PrintController;
 use App\Http\Controllers\TransactionController;
 
 /*
@@ -55,8 +56,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::put('/transactions/konfirmasi/{id}', [TransactionController::class, 'konfirmasi'])->name('transactions.konfirmasi');
 
-    Route::get('print-single/{id}', [AdminController::class, 'printSingle'])->name('print-single');
-    Route::get('print-all', [AdminController::class, 'printAll'])->name('print-all');
+    Route::get('print-single/{id}', [PrintController::class, 'printSingle'])->name('print-single');
+    Route::get('print-all', [PrintController::class, 'printAll'])->name('print-all');
 
 });
 

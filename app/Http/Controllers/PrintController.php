@@ -26,4 +26,23 @@ class PrintController extends Controller
 
         return $pdf->download('user-transactions.pdf');
     }
+
+    public function printHarian(Request $request)
+    {
+        $request->validate([
+            'tanggal' => 'required|date',
+        ]);
+
+        $tanggal = $request->tanggal;
+
+        $transactions = Transaction::whereDate('created_at', $tanggal)->get();
+
+        if ($transactions->isEmpty()) {
+            return redirect()->back()->with('error', 'Tidak ada transaksi pada tanggal tersebut.');
+        }
+
+        $pdf = Pdf::loadView('print-harian', compact('transactions', 'tanggal'));
+
+        return $pdf->download('transaksi-harian-' . $tanggal . '.pdf');
+    }
 }
